@@ -21,7 +21,7 @@ CREATE TABLE public.profiles (
 
 -- 2. Representatives (Vendors)
 CREATE TABLE public.representatives (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL UNIQUE REFERENCES public.profiles(id) ON DELETE CASCADE,
     store_name TEXT NOT NULL,
     store_slug TEXT NOT NULL UNIQUE,
@@ -37,7 +37,7 @@ CREATE TABLE public.representatives (
 
 -- 3. Categories
 CREATE TABLE public.categories (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
     image_url TEXT,
@@ -49,7 +49,7 @@ CREATE TABLE public.categories (
 
 -- 4. Products
 CREATE TABLE public.products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     representative_id UUID NOT NULL REFERENCES public.representatives(id) ON DELETE CASCADE,
     category_id UUID NOT NULL REFERENCES public.categories(id) ON DELETE RESTRICT,
     name TEXT NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE public.products (
 
 -- 5. Product Images
 CREATE TABLE public.product_images (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id UUID NOT NULL REFERENCES public.products(id) ON DELETE CASCADE,
     image_url TEXT NOT NULL,
     sort_order INTEGER NOT NULL DEFAULT 0,
@@ -76,7 +76,7 @@ CREATE TABLE public.product_images (
 
 -- 6. Orders (Parent orders)
 CREATE TABLE public.orders (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_number TEXT NOT NULL UNIQUE,
     customer_name TEXT NOT NULL,
     customer_phone TEXT NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE public.orders (
 
 -- 7. Vendor Orders (Sub-orders per representative)
 CREATE TABLE public.vendor_orders (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_id UUID NOT NULL REFERENCES public.orders(id) ON DELETE CASCADE,
     representative_id UUID NOT NULL REFERENCES public.representatives(id) ON DELETE RESTRICT,
     subtotal NUMERIC(12, 2) NOT NULL CHECK (subtotal >= 0),
@@ -107,7 +107,7 @@ CREATE TABLE public.vendor_orders (
 
 -- 8. Order Items
 CREATE TABLE public.order_items (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vendor_order_id UUID NOT NULL REFERENCES public.vendor_orders(id) ON DELETE CASCADE,
     product_id UUID NOT NULL REFERENCES public.products(id) ON DELETE RESTRICT,
     product_name_snapshot TEXT NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE public.order_items (
 
 -- 9. Notifications
 CREATE TABLE public.notifications (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     title TEXT NOT NULL,
     body TEXT NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE public.notifications (
 
 -- 10. Push Subscriptions
 CREATE TABLE public.push_subscriptions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     endpoint TEXT NOT NULL,
     p256dh TEXT NOT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE public.push_subscriptions (
 
 -- 11. Banners
 CREATE TABLE public.banners (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title TEXT NOT NULL,
     image_url TEXT NOT NULL,
     target_url TEXT,
@@ -153,7 +153,7 @@ CREATE TABLE public.banners (
 
 -- 12. Store Settings
 CREATE TABLE public.store_settings (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     key TEXT NOT NULL UNIQUE,
     value TEXT NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -161,7 +161,7 @@ CREATE TABLE public.store_settings (
 
 -- 13. Order Status History
 CREATE TABLE public.order_status_history (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vendor_order_id UUID NOT NULL REFERENCES public.vendor_orders(id) ON DELETE CASCADE,
     old_status TEXT NOT NULL CHECK (old_status IN ('pending', 'accepted', 'rejected', 'preparing', 'ready', 'out_for_delivery', 'delivered', 'cancelled')),
     new_status TEXT NOT NULL CHECK (new_status IN ('pending', 'accepted', 'rejected', 'preparing', 'ready', 'out_for_delivery', 'delivered', 'cancelled')),

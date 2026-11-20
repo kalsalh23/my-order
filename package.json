@@ -9,17 +9,17 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "@tanstack/react-query": "^5.17.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.303.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
-    "@tanstack/react-query": "^5.17.0",
     "react-hook-form": "^7.49.0",
-    "@hookform/resolvers": "^3.3.0",
-    "zod": "^3.22.0",
-    "lucide-react": "^0.303.0",
-    "@supabase/supabase-js": "^2.39.0",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0"
+    "react-router-dom": "^6.22.0",
+    "tailwind-merge": "^2.2.0",
+    "zod": "^3.22.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.47",
@@ -36,6 +36,7 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
     "vite-plugin-pwa": "^0.17.4",
+    "web-push": "^4.0.0",
     "workbox-window": "^7.0.0"
   }
 }

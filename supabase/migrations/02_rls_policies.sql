@@ -199,19 +199,7 @@ CREATE POLICY "Representatives can read own vendor orders" ON public.vendor_orde
 -- Representatives can update status of their vendor orders (limited transitions)
 CREATE POLICY "Representatives can update own vendor orders" ON public.vendor_orders
     FOR UPDATE USING (representative_id = public.get_my_representative_id())
-    WITH CHECK (
-        representative_id = public.get_my_representative_id()
-        AND status IN ('accepted', 'rejected', 'preparing', 'ready', 'out_for_delivery', 'delivered', 'cancelled')
-        AND (
-            -- Define valid transitions
-            (OLD.status = 'pending' AND NEW.status IN ('accepted', 'rejected', 'cancelled')) OR
-            (OLD.status = 'accepted' AND NEW.status IN ('preparing', 'rejected', 'cancelled')) OR
-            (OLD.status = 'preparing' AND NEW.status IN ('ready', 'cancelled')) OR
-            (OLD.status = 'ready' AND NEW.status IN ('out_for_delivery', 'cancelled')) OR
-            (OLD.status = 'out_for_delivery' AND NEW.status IN ('delivered', 'cancelled')) OR
-            (OLD.status = NEW.status)
-        )
-    );
+    WITH CHECK (representative_id = public.get_my_representative_id());
 
 -- Admins can manage all vendor orders
 CREATE POLICY "Admins can manage all vendor orders" ON public.vendor_orders
