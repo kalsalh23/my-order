@@ -62,7 +62,7 @@ interface ToastContainerProps {
 }
 
 export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
-  if (toasts.length === 0) return null
+  if (!toasts || toasts.length === 0) return null
 
   const getIcon = (type: Toast['type']) => {
     switch (type) {
