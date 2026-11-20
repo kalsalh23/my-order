@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ChevronLeft, MapPin, Phone, Clock, Star, Package, Heart, Share2, Truck, Shield, Grid, List, Filter, Search } from 'lucide-react'
+import { ChevronLeft, MapPin, Phone, Clock, Star, Package, Heart, Share2, Truck, Shield, Grid, List, Filter, Search, Mail } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { ProductCard } from '@/components/products/ProductCard'
 import { SectionHeader } from '@/components/common/SectionHeader'

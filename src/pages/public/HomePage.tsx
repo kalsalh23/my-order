@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Store, Package, TrendingUp, Clock, MapPin, Truck } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Store, Package, TrendingUp, Clock, MapPin, Truck, Shield, Headphones } from 'lucide-react'
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { ProductCard } from '@/components/products/ProductCard'

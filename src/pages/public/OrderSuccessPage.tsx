@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { CheckCircle, Truck, MapPin, Phone, Clock, ArrowLeft, Package } from 'lucide-react'
+import { CheckCircle, Truck, MapPin, Phone, Clock, ArrowLeft, Package, Shield } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { formatPrice, formatDateTime } from '@/utils'
 import type { Order } from '@/types'
