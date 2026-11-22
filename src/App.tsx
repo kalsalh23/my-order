@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { PublicLayout } from '@/components/layout/PublicLayout'
 import { VendorLayout } from '@/components/layout/VendorLayout'
 import { AdminLayout } from '@/components/layout/AdminLayout'
@@ -39,6 +39,14 @@ import { NotFoundPage } from '@/pages/public/NotFoundPage'
 import { useAuth } from '@/hooks/useAuth'
 import { useEffect, useState } from 'react'
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
+  return null
+}
+
 function ProtectedRoute({ children, allowedRoles }: { children: React.ReactNode; allowedRoles: string[] }) {
   const { user, loading } = useAuth()
   const [mounted, setMounted] = useState(false)
@@ -64,7 +72,9 @@ function ProtectedRoute({ children, allowedRoles }: { children: React.ReactNode;
 
 export function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<PublicLayout />}>
         <Route index element={<HomePage />} />
         <Route path="products" element={<ProductsPage />} />
@@ -122,5 +132,6 @@ export function App() {
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    </>
   )
 }

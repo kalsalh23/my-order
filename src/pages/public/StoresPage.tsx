@@ -81,61 +81,61 @@ export function StoresPage() {
     <div className="min-h-screen">
       {/* Page Header */}
       <header className="bg-white border-b border-gray-100">
-        <div className="container-main py-6">
-          <h1 className="heading-2">المتاجر</h1>
-          <p className="text-body-md text-gray-500 mt-1">{totalCount} متجر متاح</p>
+        <div className="container-main py-3">
+          <h1 className="heading-3">المتاجر</h1>
+          <p className="text-body-sm text-gray-500 mt-0.5">{totalCount} متجر متاح</p>
         </div>
       </header>
 
       {/* Search & Filters */}
-      <div className="bg-white border-b border-gray-100 sticky top-16 z-30">
-        <div className="container-main py-4">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
+      <div className="bg-white border-b border-gray-100 sticky top-12 z-30">
+        <div className="container-main py-2.5">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-1">
               <label htmlFor="store-search" className="sr-only">البحث عن متجر</label>
               <input
                 id="store-search"
                 type="search"
-                placeholder="ابحث عن متجر بالاسم..."
+                placeholder="ابحث عن متجر..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input pl-10"
+                className="input pl-9 py-2 text-body-sm"
               />
-              <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             </div>
 
-            <div className="relative min-w-[160px]">
+            <div className="relative min-w-[140px]">
               <label htmlFor="location-filter" className="sr-only">الموقع</label>
               <select
                 id="location-filter"
                 value={selectedLocation || ''}
                 onChange={(e) => setSelectedLocation(e.target.value || null)}
-                className="input pr-10 appearance-none"
+                className="input pr-9 appearance-none py-2 text-body-sm"
               >
                 <option value="">جميع المواقع</option>
                 {locations.map((loc) => (
                   <option key={loc} value={loc}>{loc}</option>
                 ))}
               </select>
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
             </div>
 
-            <div className="flex items-center gap-2" role="group" aria-label="وضع العرض">
+            <div className="flex items-center gap-1" role="group" aria-label="وضع العرض">
               <button
                 onClick={() => setViewMode('grid')}
-                className={cn('p-2 text-gray-500 hover:text-primary', viewMode === 'grid' && 'text-primary bg-primary/5')}
+                className={cn('p-1.5 text-gray-500 hover:text-primary', viewMode === 'grid' && 'text-primary bg-primary/5')}
                 aria-pressed={viewMode === 'grid'}
                 aria-label="عرض شبكي"
               >
-                <Grid className="w-5 h-5" />
+                <Grid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={cn('p-2 text-gray-500 hover:text-primary', viewMode === 'list' && 'text-primary bg-primary/5')}
+                className={cn('p-1.5 text-gray-500 hover:text-primary', viewMode === 'list' && 'text-primary bg-primary/5')}
                 aria-pressed={viewMode === 'list'}
                 aria-label="عرض القائمة"
               >
-                <List className="w-5 h-5" />
+                <List className="w-4 h-4" />
               </button>
             </div>
           </form>

@@ -105,7 +105,7 @@ export function HomePage() {
       return (
         <section className="section" aria-labelledby={`${title}-heading`}>
           <SectionHeader title={title} action={{ label: 'عرض الكل', href }} />
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" role="list">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 sm:gap-3" role="list">
             {Array.from({ length: skeletonCount }).map((_, i) => (
               <SkeletonProductCard key={i} />
             ))}
@@ -119,8 +119,8 @@ export function HomePage() {
     return (
       <section className="section" aria-labelledby={`${title}-heading`}>
         <SectionHeader title={title} action={{ label: 'عرض الكل', href }} />
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" role="list">
-          {products.slice(0, 8).map((product) => (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 sm:gap-3" role="list">
+          {products.slice(0, 10).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -131,7 +131,8 @@ export function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
-      <section className="relative" aria-label="العروض الرئيسية">
+      <section className="relative px-4 pt-4" aria-label="العروض الرئيسية">
+        <div className="rounded-2xl overflow-hidden shadow-card bg-white">
         {loading ? (
           <div className="aspect-[16/9] bg-gray-100 animate-pulse" />
         ) : banners.length > 0 ? (
@@ -153,7 +154,7 @@ export function HomePage() {
                   <img
                     src={getImageUrl(banner.image_url)}
                     alt={banner.title}
-                    className="w-full h-48 sm:h-56 md:h-64 object-cover"
+                    className="w-full h-40 sm:h-48 md:h-56 object-cover"
                     loading={index === 0 ? 'eager' : 'lazy'}
                   />
                 </Link>
@@ -164,28 +165,28 @@ export function HomePage() {
               <>
                 <button
                   onClick={() => setCurrentBannerIndex((prev) => (prev - 1 + banners.length) % banners.length)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-charcoal shadow-lg hover:bg-white transition-colors touch-manipulation"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-charcoal shadow-lg hover:bg-white transition-colors touch-manipulation"
                   aria-label="العرض السابق"
                 >
-                  <ArrowLeft className="w-5 h-5" />
+                  <ArrowLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setCurrentBannerIndex((prev) => (prev + 1) % banners.length)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-charcoal shadow-lg hover:bg-white transition-colors touch-manipulation"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-charcoal shadow-lg hover:bg-white transition-colors touch-manipulation"
                   aria-label="العرض التالي"
                 >
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5" role="tablist" aria-label="مؤشرات العروض">
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1" role="tablist" aria-label="مؤشرات العروض">
                   {banners.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentBannerIndex(index)}
                       className={cn(
-                        'w-2 h-2 rounded-full transition-all duration-300 touch-manipulation',
+                        'w-1.5 h-1.5 rounded-full transition-all duration-300 touch-manipulation',
                         index === currentBannerIndex
-                          ? 'bg-white w-6'
+                          ? 'bg-white w-5'
                           : 'bg-white/50 hover:bg-white/75'
                       )}
                       role="tab"
@@ -200,23 +201,26 @@ export function HomePage() {
         ) : (
           <div className="aspect-[16/9] bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
             <div className="text-center px-6">
-              <Store className="w-16 h-16 mx-auto text-primary/50 mb-4" />
-              <h2 className="text-heading-lg font-semibold text-charcoal">لا توجد عروض حالياً</h2>
-              <p className="text-body-md text-gray-500 mt-2">تصفح منتجاتنا المميزة أدناه</p>
+              <Store className="w-12 h-12 mx-auto text-primary/50 mb-3" />
+              <h2 className="text-heading-sm font-semibold text-charcoal">لا توجد عروض حالياً</h2>
+              <p className="text-body-sm text-gray-500 mt-2">تصفح منتجاتنا المميزة أدناه</p>
             </div>
           </div>
         )}
+        </div>
       </section>
 
       {/* Categories */}
       <section className="section bg-white" aria-labelledby="categories-heading">
         <SectionHeader title="الأقسام" id="categories-heading" action={{ label: 'كل الأقسام', href: '/products' }} />
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3" role="list">
+        <div className="grid grid-cols-4 sm:grid-cols-7 gap-2" role="list">
           {loading
-            ? Array.from({ length: 8 }).map((_, i) => <SkeletonCategoryCard key={i} />)
-            : categories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
+            ? Array.from({ length: 7 }).map((_, i) => <SkeletonCategoryCard key={i} />)
+            : categories
+                .filter((c) => !['automotive', 'books', 'electronics'].includes(c.slug))
+                .map((category) => (
+                  <CategoryCard key={category.id} category={category} />
+                ))}
         </div>
       </section>
 
@@ -232,7 +236,7 @@ export function HomePage() {
       {/* Featured Stores */}
       <section className="section" aria-labelledby="stores-heading">
         <SectionHeader title="متاجر مميزة" id="stores-heading" action={{ label: 'كل المتاجر', href: '/stores' }} />
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" role="list">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" role="list">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <SkeletonStoreCard key={i} />)
             : featuredStores.map((store) => (

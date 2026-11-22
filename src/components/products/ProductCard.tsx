@@ -102,13 +102,13 @@ export function ProductCard({ product, variant = 'default', showStore = true, on
           loading="lazy"
         />
         {hasDiscount && (
-          <span className="absolute top-2 right-2 discount-badge px-2 py-1">
+          <span className="absolute top-1 right-1 discount-badge px-1.5 py-0.5 text-[10px]">
             -{discountPercent}%
           </span>
         )}
         {product.stock_quantity === 0 && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <span className="text-white font-medium text-body-md px-4 py-2 bg-red-600 rounded-lg">
+            <span className="text-white font-medium text-body-xs px-2 py-1 bg-red-600 rounded-md">
               غير متوفر
             </span>
           </div>
@@ -116,37 +116,22 @@ export function ProductCard({ product, variant = 'default', showStore = true, on
       </Link>
 
       <div className="product-card-content">
-        {showStore && product.representative && (
-          <Link
-            to={`/stores/${product.representative.store_slug}`}
-            className="flex items-center gap-1.5 text-body-xs text-gray-500 hover:text-primary transition-colors touch-manipulation"
-            aria-label={`متجر ${product.representative.store_name}`}
-          >
-            <Store className="w-3.5 h-3.5" aria-hidden="true" />
-            <span className="truncate max-w-[120px]">{product.representative.store_name}</span>
-          </Link>
-        )}
-
         <Link
           to={`/products/${product.slug}`}
           className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           aria-label={`${product.name} - ${formatPrice(effectivePrice)}`}
         >
-          <h3 className="text-body-md font-medium text-charcoal line-clamp-2 group-hover:text-primary transition-colors">
+          <h3 className="text-body-xs font-medium text-charcoal line-clamp-2 group-hover:text-primary transition-colors leading-tight">
             {product.name}
           </h3>
         </Link>
 
-        <div className="flex items-baseline gap-2">
-          <span className="price">{formatPrice(effectivePrice)}</span>
+        <div className="flex items-baseline gap-1 mt-auto">
+          <span className="text-body-sm font-semibold text-primary">{formatPrice(effectivePrice)}</span>
           {hasDiscount && (
-            <span className="old-price">{formatPrice(product.price)}</span>
+            <span className="text-[10px] text-gray-400 line-through">{formatPrice(product.price)}</span>
           )}
         </div>
-
-        {product.description && (
-          <p className="text-body-xs text-gray-500 line-clamp-2">{product.description}</p>
-        )}
       </div>
 
       <div className="product-card-footer">
@@ -158,27 +143,26 @@ export function ProductCard({ product, variant = 'default', showStore = true, on
               aria-label="تقليل الكمية"
               disabled={quantity <= 1}
             >
-              <Minus className="w-4 h-4" />
+              <Minus className="w-3 h-3" />
             </button>
-            <span className="quantity-value">{quantity}</span>
+            <span className="quantity-value text-body-sm">{quantity}</span>
             <button
               onClick={(e) => handleQuantityChange(e, 1)}
               className="quantity-btn"
               aria-label="زيادة الكمية"
               disabled={quantity >= product.stock_quantity}
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3 h-3" />
             </button>
           </div>
         ) : (
           <button
             onClick={handleAddToCart}
-            className="btn-primary flex-1 justify-center py-2"
+            className="btn-primary flex-1 justify-center py-1.5 text-body-xs"
             disabled={product.stock_quantity === 0}
             aria-label={`أضف ${product.name} إلى السلة`}
           >
-            <ShoppingCart className="w-4 h-4" />
-            <span>أضف للسلة</span>
+            <ShoppingCart className="w-3.5 h-3.5" />
           </button>
         )}
       </div>

@@ -21,32 +21,30 @@ export function Header() {
   return (
     <header className="sticky top-0 z-sticky bg-white border-b border-gray-100">
       <div className="container-main">
-        <div className="flex items-center justify-between h-16 gap-4">
-          <Link to={isVendorRoute ? '/vendor/dashboard' : isAdminRoute ? '/admin/dashboard' : '/'} className="flex items-center gap-2 shrink-0 touch-manipulation" aria-label="مندوب طيبة - الرئيسية">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Store className="w-5 h-5 text-white" aria-hidden="true" />
+        <div className="grid grid-cols-3 items-center h-12 gap-3">
+          <div className="hidden md:block">
+            <Link to="/products" className="relative w-full max-w-md touch-manipulation">
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" aria-hidden="true" />
+              <input
+                type="search"
+                placeholder="ابحث..."
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg pr-9 pl-3 py-2 text-body-sm placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors duration-fast"
+                aria-label="البحث عن المنتجات"
+                autoComplete="off"
+              />
+            </Link>
+          </div>
+
+          <Link to={isVendorRoute ? '/vendor/dashboard' : isAdminRoute ? '/admin/dashboard' : '/'} className="justify-self-center flex items-center gap-2 shrink-0 touch-manipulation" aria-label="مندوب طيبة - الرئيسية">
+            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+              <Store className="w-4 h-4 text-white" aria-hidden="true" />
             </div>
-            <span className="text-heading-md font-semibold text-charcoal hidden sm:block">
+            <span className="text-body-md font-semibold text-charcoal">
               مندوب طيبة
             </span>
           </Link>
 
-          <div className="flex-1 max-w-xl hidden md:block">
-            <Link to="/products" className="relative w-full touch-manipulation">
-              <div className="relative">
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" aria-hidden="true" />
-                <input
-                  type="search"
-                  placeholder="ابحث عن منتجات، متاجر، علامات تجارية..."
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg pr-10 pl-4 py-2.5 text-body-md placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-colors duration-fast"
-                  aria-label="البحث عن المنتجات"
-                  autoComplete="off"
-                />
-              </div>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center justify-end gap-0.5 sm:gap-1">
             <Link
               to="/cart"
               className="relative p-2.5 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors duration-fast touch-manipulation"
@@ -107,13 +105,13 @@ export function Header() {
           </div>
         </div>
 
-        <div className="md:hidden border-t border-gray-100 py-2">
+        <div className="md:hidden border-t border-gray-100 py-1.5">
           <Link
             to="/products"
-            className="flex items-center gap-2 w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 touch-manipulation"
+            className="flex items-center gap-2 w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 touch-manipulation"
           >
-            <Search className="w-5 h-5 text-gray-400" aria-hidden="true" />
-            <span className="text-body-md text-gray-500 flex-1 text-right">ابحث عن منتجات...</span>
+            <Search className="w-4 h-4 text-gray-400" aria-hidden="true" />
+            <span className="text-body-sm text-gray-500 flex-1 text-right">ابحث عن منتجات...</span>
           </Link>
         </div>
       </div>

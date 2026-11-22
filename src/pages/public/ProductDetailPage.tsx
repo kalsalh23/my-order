@@ -199,12 +199,12 @@ export function ProductDetailPage() {
       </nav>
 
       {/* Product Details */}
-      <main className="container-main py-6">
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
+      <main className="container-main py-4">
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Image Gallery */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div
-              className="relative aspect-square rounded-lg overflow-hidden bg-gray-50 cursor-zoom-in touch-manipulation"
+              className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 cursor-zoom-in touch-manipulation"
               onClick={handleImageClick}
               role="button"
               tabIndex={0}
@@ -217,14 +217,14 @@ export function ProductDetailPage() {
                 className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
               {allImages.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                   {allImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
                       className={cn(
-                        'w-2 h-2 rounded-full transition-all touch-manipulation',
-                        index === currentImageIndex ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/75'
+                        'w-1.5 h-1.5 rounded-full transition-all touch-manipulation',
+                        index === currentImageIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/75'
                       )}
                       aria-label={`عرض الصورة ${index + 1}`}
                       aria-current={index === currentImageIndex ? 'true' : 'false'}
@@ -233,20 +233,20 @@ export function ProductDetailPage() {
                 </div>
               )}
               {hasDiscount && (
-                <span className="absolute top-3 right-3 discount-badge px-3 py-1">
+                <span className="absolute top-2 right-2 discount-badge px-2 py-1 text-body-xs">
                   -{discountPercent}%
                 </span>
               )}
             </div>
 
             {allImages.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide" role="group" aria-label="صور المنتج">
+              <div className="flex gap-1.5 overflow-x-auto scrollbar-hide" role="group" aria-label="صور المنتج">
                 {allImages.map((img, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
                     className={cn(
-                      'flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors touch-manipulation',
+                      'flex-shrink-0 w-14 h-14 rounded-md overflow-hidden border-2 transition-colors touch-manipulation',
                       index === currentImageIndex ? 'border-primary' : 'border-transparent hover:border-gray-300'
                     )}
                     aria-label={`الصورة ${index + 1}`}
@@ -265,7 +265,7 @@ export function ProductDetailPage() {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {product.representative && (
               <Link
                 to={`/stores/${product.representative.store_slug}`}
@@ -276,28 +276,28 @@ export function ProductDetailPage() {
               </Link>
             )}
 
-            <h1 className="heading-2 text-charcoal">{product.name}</h1>
+            <h1 className="heading-3 text-charcoal">{product.name}</h1>
 
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <span className="price-lg">{formatPrice(effectivePrice)}</span>
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <span className="text-heading-sm font-semibold text-primary">{formatPrice(effectivePrice)}</span>
               {hasDiscount && (
-                <span className="old-price text-body-lg">{formatPrice(product.price)}</span>
+                <span className="old-price text-body-sm">{formatPrice(product.price)}</span>
               )}
             </div>
 
-            <div className="flex items-center gap-4 text-body-sm text-gray-500">
+            <div className="flex items-center gap-3 text-body-xs text-gray-500">
               <span className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-amber-500 fill-current" />
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-current" />
                 4.8 (124 تقييم)
               </span>
               <span className="flex items-center gap-1">
-                <Truck className="w-4 h-4" />
+                <Truck className="w-3.5 h-3.5" />
                 توصيل سريع
               </span>
             </div>
 
             {product.description && (
-              <div className="prose prose-rtl max-w-none text-body-md text-gray-700">
+              <div className="prose prose-rtl max-w-none text-body-sm text-gray-700">
                 <p className="whitespace-pre-wrap">{product.description}</p>
               </div>
             )}
@@ -394,20 +394,20 @@ export function ProductDetailPage() {
             )}
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="p-3 rounded-lg bg-gray-50 touch-manipulation">
-                <Truck className="w-6 h-6 mx-auto text-primary mb-1" />
-                <p className="text-body-xs text-gray-600">توصيل سريع</p>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="p-2 rounded-lg bg-gray-50 touch-manipulation">
+                <Truck className="w-5 h-5 mx-auto text-primary mb-1" />
+                <p className="text-[10px] text-gray-600">توصيل سريع</p>
               </div>
-              <div className="p-3 rounded-lg bg-gray-50 touch-manipulation">
-                <Shield className="w-6 h-6 mx-auto text-primary mb-1" />
-                <p className="text-body-xs text-gray-600">دفع آمن</p>
+              <div className="p-2 rounded-lg bg-gray-50 touch-manipulation">
+                <Shield className="w-5 h-5 mx-auto text-primary mb-1" />
+                <p className="text-[10px] text-gray-600">دفع آمن</p>
               </div>
-              <div className="p-3 rounded-lg bg-gray-50 touch-manipulation">
-                <svg className="w-6 h-6 mx-auto text-primary mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="p-2 rounded-lg bg-gray-50 touch-manipulation">
+                <svg className="w-5 h-5 mx-auto text-primary mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-                <p className="text-body-xs text-gray-600">ضمان الجودة</p>
+                <p className="text-[10px] text-gray-600">ضمان الجودة</p>
               </div>
             </div>
           </div>
@@ -415,9 +415,9 @@ export function ProductDetailPage() {
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <section className="mt-12" aria-labelledby="related-heading">
+          <section className="mt-8" aria-labelledby="related-heading">
             <SectionHeader title="منتجات ذات صلة" id="related-heading" action={{ label: 'عرض الكل', href: `/categories/${product.category?.slug}` }} />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" role="list">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 sm:gap-3" role="list">
               {relatedProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}
