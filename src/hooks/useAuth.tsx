@@ -70,28 +70,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const initAuth = async () => {
-      const { data: { session: currentSession } } = await supabase.auth.getSession()
-      setSession(currentSession)
-
-      if (currentSession?.user) {
-        await fetchUserProfile(currentSession.user)
+      try {
+        const { data: { session: currentSession } } = await supabase.auth.getSession()
+        setSession(currentSession)
+        if (currentSession?.user) {
+          await fetchUserProfile(currentSession.user)
+        }
+      } catch (error) {
+        console.error('Auth init error:', error)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     initAuth()
 
-    const { data: { subscription } } = onAuthStateChange(async (event, newSession) => {
-      setSession(newSession)
-      if (newSession?.user) {
-        await fetchUserProfile(newSession.user)
-      } else {
-        setUser(null)
+    let unsubscribeFn: (() => void) | undefined
+    try {
+      const { data: { subscription } } = onAuthStateChange(async (event, newSession) => {
+        setSession(newSession)
+        if (newSession?.user) {
+          await fetchUserProfile(newSession.user)
+        } else {
+          setUser(null)
+        }
+        setLoading(false)
+      })
+      if (subscription) {
+        unsubscribeFn = () => subscription.unsubscribe()
       }
-      setLoading(false)
-    })
+    } catch (error) {
+      console.error('Auth subscription error:', error)
+    }
 
-    return () => subscription.unsubscribe()
+    return () => {
+      if (unsubscribeFn) unsubscribeFn()
+    }
   }, [])
 
   const signIn = async (email: string, password: string) => {

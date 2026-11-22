@@ -6,6 +6,7 @@ import { AuthProvider } from '@/hooks/useAuth'
 import { CartProvider } from '@/hooks/useCart'
 import { NotificationsProvider } from '@/hooks/useNotifications'
 import { ToastProvider } from '@/components/common/Toast'
+import { ErrorBoundary } from '@/components/common/ErrorBoundary'
 import { App } from './App'
 import './styles/globals.css'
 
@@ -22,18 +23,20 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <CartProvider>
-          <NotificationsProvider>
-            <ToastProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </ToastProvider>
-          </NotificationsProvider>
-        </CartProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <CartProvider>
+            <NotificationsProvider>
+              <ToastProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </ToastProvider>
+            </NotificationsProvider>
+          </CartProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 )
